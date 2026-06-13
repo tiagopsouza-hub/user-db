@@ -1,9 +1,15 @@
 import 'dotenv/config';
 import express from 'express';
 import mysql from 'mysql2/promise';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './doc/swagger-output.json' with {type: 'json'}
 
 const port = 3000;
+
 const app = express();
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use(express.json());
 
 const pool = mysql.createPool({
